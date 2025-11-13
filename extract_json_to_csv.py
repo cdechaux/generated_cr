@@ -149,10 +149,14 @@ def main():
         row = extract_row(conv)
         if row["text"]:  # n'écrit que si on a un contenu user
             rows.append(row)
+    
+    # Ajout de la numérotation code_sejour
+    for i, row in enumerate(rows, start=1):
+        row["code_sejour"] = i
 
     # Écriture CSV
     with io.open(args.output, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=["text", "dp_code", "dr_code", "da_codes"])
+        writer = csv.DictWriter(f, fieldnames=["code_sejour", "text", "dp_code", "dr_code", "da_codes"])
         writer.writeheader()
         writer.writerows(rows)
 
